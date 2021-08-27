@@ -5,7 +5,7 @@
         <n>5</n>
         </dimension>
         <posicioninicio>
-            <x>1</x>
+            <x>4</x>
             <y>1</y>
         </posicioninicio>
         <posicionfin>
@@ -41,7 +41,7 @@
     <terreno nombre="terreno2">
         <dimension>
          <m>7</m>
-         <n>5</n>
+         <n>4</n>
          
         </dimension>
         <posicioninicio>

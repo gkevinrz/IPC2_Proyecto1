@@ -68,22 +68,37 @@ class ListaPosiciones:
         numeros_enY=final.getPosicionX()-actual.getPosicionX()
         cont_enX=actual.getPosicionX()
         cont_enY=actual.getPosicionY()
-        suma=0
-        #para esquinas
+        suma=0  
         self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
         if numeros_enX >0 and numeros_enY>0:
-            while cont_enX<numeros_enX:
-                if self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible()<self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible():
-                    actual=self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY())
-                    self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
-                    cont_enX+=1 
+            while cont_enX!=(numeros_enX+numeros_enY):
+                if self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()) is not None:
+                    if self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible()<self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible():
+                        actual=self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1)
+                        self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
+                    elif self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible()<self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible():
+                        actual=self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY())
+                        self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
+                    elif self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible()==self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible():
+                        actual=self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY())
+                        self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
                 else:
-                    pass
-                #elif self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible()<self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible():
-                    #actual=self.buscarPosicion(cont_enX+1,cont_enY)
-                    #self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
-                    #cont_enY+=1
+                    
+                    actual=self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1)
+                    self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
+                    
+                cont_enX+=1
+  
 
+            
+                    
+                #elif self.buscarPosicion(cont_enX+1,cont_enY).getCombustible()<self.buscarPosicion(cont_enX,cont_enY+1).getCombustible():
+                 #   actual=self.buscarPosicion(cont_enX+1,cont_enY)
+                  #  self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
+                   # cont_enY+=1
+
+                   
+   
           
                   
 

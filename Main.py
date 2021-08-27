@@ -1,5 +1,5 @@
 from Terreno import Terreno
-from typing import List
+from typing import List, MutableMapping
 import xml.etree.ElementTree as ET
 from Lista_Terrenos import ListaTerreno
 from ListaPosiciones import ListaPosiciones
@@ -41,8 +41,12 @@ def Menu():
         elif Opcion=='4':
             DatosEstudiantiles()
         elif Opcion=='5':
-            map=ListaTerrenos.inicio
-            GenerarGrafica(map)
+            print('')
+            ListaTerrenos.MostrarTerrenos()
+            print('-------------------------------')
+            OpcionGraficaTerreno=input('Escriba el nombre del terreno a graficar: \n> ')
+            GenerarGrafica(ListaTerrenos.getTerreno(OpcionGraficaTerreno))
+
 
 ##
 def CargarArchivo(Ruta,listaterrenos):
@@ -94,79 +98,104 @@ def DatosEstudiantiles():
     print('| 4to Semestre')
     print('')
 def GenerarGrafica(mapa_graficar):
-    texto="""
-    digraph L{
-    node[shape=box fillcolor="#FFEDBB" style =filled]
-    
-    subgraph cluster_p{
-        label= "Matriz Dispersa"
-        bgcolor = "#398D9C"
-        raiz[label = "0,0"]
+  
+    texto1="""
+        digraph L{
+        node[shape=box fillcolor="#FFFFFF" style =filled]
+        subgraph cluster_p{"""
+    texto2=f"""label= "{mapa_graficar.nombreMapa}"
+        bgcolor = "#E5E8E8"
         edge[dir = "none"]
-        /*Aqui creamos las cabeceras
-        de las filas*/
-        Fila1[label="1",group=1];   
-        Fila2[label="2",group=1];   
-        Fila3[label="3",group=1];   
-        Fila4[label="4",group=1];   
-        Fila5[label="5",group=1];   
-        /*Aqui enlazamos los
-        nodos de las filas*/
-        Fila1->Fila2;
-        Fila2->Fila3;
-        Fila3->Fila4;
-        Fila4->Fila5; 
-        /*Aqui enlazamos los
-        nodos de las COLUMNAS*/
-        Columna1[label = "1",group=2,fillcolor=yellow];
-        Columna2[label = "2",group=3,fillcolor=yellow];
-        Columna3[label = "3",group=4,fillcolor=yellow];
-        Columna4[label = "4",group=5,fillcolor=yellow];
-        Columna5[label = "5",group=6,fillcolor=yellow];
-        /*Aqui enlazar los nodos
-        de las caberas de las columnas*/
-        Columna1->Columna2;
-        Columna2->Columna3;
-        Columna3->Columna4;
-        Columna4->Columna5;
-        /*aqui vamos a unir la raiz a las
-        filas y a las columnas*/
-        raiz->Fila1;
-        raiz->Columna1;
-        /*aqui vamos a alinear cada 
-        nodo cabecera de las columnas*/
-        {rank=same;raiz;Columna1;Columna2;Columna3;Columna4;Columna5}
-        nodo1_1[label="1,1",fillcolor=green,group=2]
-        nodo1_2[label="1,2",fillcolor=green,group=3]
-        nodo1_3[label="1,3",fillcolor=green,group=4]
-        nodo1_4[label="1,4",fillcolor=green,group=5]
-        nodo1_5[label="1,5",fillcolor=green,group=6]
-        nodo2_1[label="2,1",fillcolor=green,group=1]
-        nodo2_2[label="2,2",fillcolor=green,group=3]
+        """
+    texto3=''
+    cont=1
+    while cont<=mapa_graficar.numFilas:
+        texto3+=f"""
+         Fila{cont}[label="{mapa_graficar.Lista_Posiciones.buscarPosicion(cont,1).getCombustible()}",group=1,color = white]; 
+        """
+        cont+=1
+    contfilas=1
+    texto4=''
+    while contfilas!=mapa_graficar.numFilas:
+            texto4+=f""" 
+            Fila{contfilas}->Fila{contfilas+1};\n"""
+            contfilas+=1
         
-        Fila1->nodo1_1
-        nodo1_1->nodo1_2
-        nodo1_2->nodo1_3
-        nodo1_3->nodo1_4
-        nodo1_4->nodo1_5
-        {rank=same;Fila1;nodo1_1;nodo1_2;nodo1_3;nodo1_4;nodo1_5}
-        Fila2->nodo2_1
-        nodo2_1->nodo2_2
-        {rank=same;Fila2;nodo2_1;nodo2_2}
+    texto5=''
+    cont1=2
+    print(mapa_graficar.numColumnas)
+    while cont1<=mapa_graficar.numColumnas:
+        texto5+=f"""
+        Columna{cont1}[label="{mapa_graficar.Lista_Posiciones.buscarPosicion(1,cont1).getCombustible()}",group={cont1},color = white]; 
+        """
+        cont1+=1
+    contcols=2
+    texto6='Fila1->Columna2;\n'
+    while contcols!=mapa_graficar.numColumnas:
+        texto6+=f"""
+         Columna{contcols}->Columna{contcols+1};
+        """
+        contcols+=1
+    
+      
+       
 
-        Columna1->nodo1_1
-        Columna2->nodo1_2
-        Columna3->nodo1_3
-        Columna4->nodo1_4
-        Columna5->nodo1_5
-        
-        nodo1_1->nodo2_1
-        nodo1_2->nodo2_2
+       
+   
+    contcols2=2
+    texto7='{rank=same;Fila1;'
+    while contcols2<=mapa_graficar.numColumnas:
+        texto7+=f"""Columna{contcols2};"""
+        contcols2+=1
+    texto7+='}'
+
+
+    
+    texto8=''
+    for i in range(2,mapa_graficar.numFilas+1,1):
+        for j in range(2,mapa_graficar.numColumnas+1,1):
+            texto8+=f"""nodo{i}_{j}[label="{mapa_graficar.Lista_Posiciones.buscarPosicion(i,j).getCombustible()}",fillcolor=green,group={j}]\n"""
+    texto9=''
+    for k in range(2,mapa_graficar.numFilas+1,1):
+        texto9+=f"""Fila{k}->nodo{k}_2\n"""
+
+    texto10=''
+    for i in range(2,mapa_graficar.numFilas+1,1):
+        for j in range(2,mapa_graficar.numColumnas+1,1):
+            if j==mapa_graficar.numColumnas:
+                texto10+=f"""nodo{i}_{j}\n"""
+            else:
+                texto10+=f"""nodo{i}_{j}->"""
+
+    for i in range(2,mapa_graficar.numFilas+1,1):
+        texto10+='{'
+        texto10+=f"""rank=same;Fila{i};"""
+        for j in range(2,mapa_graficar.numColumnas+1,1):
+            texto10+=f"""nodo{i}_{j};"""
+        texto10+='}\n'
+
+    texto10+="""
     }
     }
     """
+    texto11="""
+         {rank=same;Fila3;nodo3_2;nodo3_3;nodo3_4;nodo3_5}
+        {rank=same;Fila4;nodo4_2;nodo4_3;nodo4_4;nodo4_5}
+        {rank=same;Fila5;nodo5_2;nodo5_3;nodo5_4;nodo5_5}
+
+
+        Columna2->nodo2_2
+        Columna3->nodo2_3
+        Columna4->nodo2_4
+        Columna5->nodo2_5
+    }
+    }
+    """
+
+  
+    txt=texto1+texto2+texto3+texto4+texto5+texto6+texto7+texto8+texto9+texto10
     miarchivo=open('grap.dot','w')
-    miarchivo.write(texto)
+    miarchivo.write(txt)
     miarchivo.close()
     system('dot -Tpng grap.dot -o grap.png')
     system('cd ./grap.png')
