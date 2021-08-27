@@ -31,8 +31,8 @@ class ListaTerreno():
     def MostrarTerrenos(self):
         tempo = self.inicio
         while tempo is not None:
-            print('Nombre del Terreno: ',tempo.nombreMapa, 'Posicion Inicial: ','(',tempo.posInicialx,',',tempo.posInicialY,')')
-            print('Dimensiones:',tempo.numFilas,'x',tempo.numColumnas)
-            tempo.Lista_Posiciones.mostrarPosiciones()
+            print('- Nombre del Terreno: ',tempo.nombreMapa, 'Posicion Inicial: ','(',tempo.posInicialx,',',tempo.posInicialY,')')
+            print('- Dimensiones:',tempo.numFilas,'x',tempo.numColumnas)
+            #tempo.Lista_Posiciones.mostrarPosiciones()
             tempo = tempo.siguiente
 
