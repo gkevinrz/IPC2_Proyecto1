@@ -68,7 +68,12 @@ class ListaPosiciones:
         numeros_enY=final.getPosicionX()-actual.getPosicionX()
         cont_enX=actual.getPosicionX()
         cont_enY=actual.getPosicionY()
+<<<<<<< HEAD
         suma=0  
+=======
+        suma=1
+        #para esquinas
+>>>>>>> 3.0.0
         self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
         if numeros_enX >0 and numeros_enY>0:
             while cont_enX!=(numeros_enX+numeros_enY):
@@ -83,12 +88,21 @@ class ListaPosiciones:
                         actual=self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY())
                         self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
                 else:
+<<<<<<< HEAD
                     
                     actual=self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1)
                     self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
                     
                 cont_enX+=1
   
+=======
+                    pass
+                #elif self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible()<self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible():
+                    #actual=self.buscarPosici
+                    # on(cont_enX+1,cont_enY)
+                    #self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
+                    #cont_enY+=1
+>>>>>>> 3.0.0
 
             
                     
