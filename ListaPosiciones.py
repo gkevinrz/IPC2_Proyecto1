@@ -68,7 +68,7 @@ class ListaPosiciones:
         numeros_enY=final.getPosicionX()-actual.getPosicionX()
         cont_enX=actual.getPosicionX()
         cont_enY=actual.getPosicionY()
-        suma=0
+        suma=1
         #para esquinas
         self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
         if numeros_enX >0 and numeros_enY>0:
@@ -80,7 +80,8 @@ class ListaPosiciones:
                 else:
                     pass
                 #elif self.buscarPosicion(actual.getPosicionX()+1,actual.getPosicionY()).getCombustible()<self.buscarPosicion(actual.getPosicionX(),actual.getPosicionY()+1).getCombustible():
-                    #actual=self.buscarPosicion(cont_enX+1,cont_enY)
+                    #actual=self.buscarPosici
+                    # on(cont_enX+1,cont_enY)
                     #self.listacamino.insertarPosicion(actual.getPosicionX(),actual.getPosicionY(),actual.getCombustible(),'1')
                     #cont_enY+=1
 
