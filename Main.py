@@ -73,9 +73,9 @@ def CargarArchivo(Ruta,listaterrenos):
                 posfinY=elemento7.text
         for elemento9 in elemento.iter('dimension'):
             for elemento10 in elemento9.iter('m'):
-                filas=elemento10.text
+                columnas=elemento10.text
             for elemento11 in elemento9.iter('n'):
-                columnas=elemento11.text
+                filas=elemento11.text
         listaterrenos.insertarTerreno(elemento.attrib['nombre'],posinX,posinY,posfinX,posfinY,filas,columnas)
         terreno=listaterrenos.getTerreno(elemento.attrib['nombre'])
         terreno.Lista_Posiciones.posicionInicialx=int(posinX)
