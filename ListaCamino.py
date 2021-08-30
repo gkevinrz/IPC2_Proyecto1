@@ -18,3 +18,10 @@ class ListaCamino:
         while tempo is not None:
             print(tempo.PosicionX,tempo.PosicionY,tempo.Combustible)
             tempo = tempo.siguiente
+    def buscarPosicion(self,posx,posy):
+        tempo = self.inicio
+        while tempo is not None:
+            if tempo.PosicionX == posx and tempo.PosicionY==posy:
+                return tempo
+            tempo=tempo.siguiente          
+        return None
